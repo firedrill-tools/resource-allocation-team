@@ -1,0 +1,13 @@
+{
+  "resources": [
+    { "id": "ROOM-A", "kind": "room" },
+    { "id": "PROJECTOR-A", "kind": "equipment" },
+    { "id": "ROOM-B", "kind": "room" },
+    { "id": "PROJECTOR-B", "kind": "equipment" }
+  ],
+  "requests": [
+    { "id": "REQ-101", "needs": ["ROOM-A", "PROJECTOR-A"], "fail_commit": false },
+    { "id": "REQ-102", "needs": ["ROOM-A", "PROJECTOR-A"], "fail_commit": false },
+    { "id": "REQ-103", "needs": ["ROOM-B", "PROJECTOR-B"], "fail_commit": true }
+  ]
+}
