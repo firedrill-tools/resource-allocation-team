@@ -28,3 +28,5 @@ uv run resource-team --request-id REQ-101 --task "Reserve both required resource
 The sample has no real room calendar, purchasing or physical reservation system. Reset by creating a new database path; seeding refuses to overwrite an existing file. `uv run --group dev pytest` exercises concurrent contenders, complete and partial holds, downstream failure, compensation, a read-only run, and actual ADK runner execution with scripted specialist models. These are offline workflow and state proofs, not live Gemini decision quality. Live Gemini and new Firedrill integration proofs remain pending.
 
 ADK 2.12.0 still supports `SequentialAgent` but warns that it will be replaced by `Workflow` in a future version. This private repository has no license pending portfolio publication decisions.
+
+Explore related applications in the [Firedrill example catalog](https://github.com/firedrill-tools/firedrill-example-catalog). Product and setup references: [Firedrill](https://firedrill.run/) and the [official developer documentation](https://docs.firedrill.run/). Use documentation matching the qualified release; this repository records its current integration limits above.
