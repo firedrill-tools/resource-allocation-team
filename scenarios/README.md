@@ -1,10 +1,7 @@
-# Scenarios
+# Private synthetic resource populations
 
-Seed a fresh SQLite database for each independent case. Score requests, holds and audit events.
+Use `resource-team-cases list`, `init --case ID --root NEW`, `inspect --root ROOT`, and `reset --root OLD --new-root NEW`. These model-free controls return private setup/reference/source metadata, never runtime capabilities. Do not pass private control/oracle snapshots to a model. Normal `resource-team` receives only the selected request/task/independent write flag and its own public source/tool observations.
 
-- **Complete allocation:** REQ-101 reserves ROOM-A and PROJECTOR-A, commits both, and remains confirmed.
-- **Concurrent conflict:** REQ-101 and REQ-102 try ROOM-A at the same revision. Exactly one hold succeeds.
-- **Partial allocation:** REQ-101 holds PROJECTOR-A while REQ-102 holds ROOM-A. REQ-101 cannot commit and compensation releases only its projector.
-- **Downstream failure:** REQ-103 holds ROOM-B and PROJECTOR-B, but commit fails. The compensation specialist releases both and marks the request compensated.
-- **No rollback of confirmation:** compensation refuses to release REQ-101 after successful commit.
-- **Read-only:** without `--allow-writes`, all three specialists can inspect but cannot hold, commit or compensate.
+Three starter cases cover confirmation, downstream failure/compensation and readonly. Three busy cases carry68resources/64requests/96complete prior human steps,8confirmed allocations/8compensated failures/8partial holds; they test current confirmation, recovery without duplicate holds and a real competing request during HTTP. Ambiguous cases cover a conservative inspection-only choice, unavailable room with partial compensation, and preserving a competitor's committed allocation. Boundary cases change the original plan, close equipment after a read, or return an unfinished final after actual confirmation.
+
+`python scripts/generate_populations.py --check` regenerates in a temporary directory without changing source pins. `python scripts/qualify_cases.py` runs all12installed actual ADK/Gemini/Google SDK paths over owned HTTP (130requests), private CLI inspection and separate byte-preserving resets. These controlled results qualify execution/source behavior, without model semantics or real bookings.

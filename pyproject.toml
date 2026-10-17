@@ -4,12 +4,14 @@ build-backend = "hatchling.build"
 
 [project]
 name = "resource-allocation-team"
-version = "0.1.0"
+version = "0.2.0"
+readme = "README.md"
 description = "Google ADK specialist workflow over transactional synthetic resources"
 requires-python = ">=3.12"
 dependencies = ["google-adk==2.12.0", "google-genai==2.31.0", "httpx==0.28.1", "pydantic==2.14.1", "opentelemetry-api==1.42.1"]
 
 [project.scripts]
+resource-team-cases = "resource_team.cases:main"
 resource-team-state = "resource_team.managed_cli:main"
 resource-team = "resource_team.cli:main"
 
@@ -21,3 +23,6 @@ packages = ["src/resource_team"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "fixtures", "scenarios", "tests", "scripts", ".github", "README.md", "AGENTS.md", "PLAN.md", "COMPATIBILITY.md", "pyproject.toml", "uv.lock", ".gitignore"]

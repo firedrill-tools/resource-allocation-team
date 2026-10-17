@@ -5,3 +5,8 @@ __pycache__/
 workspace/
 .env
 .DS_Store
+
+dist/
+artifacts/
+*.db
+*.db-journal

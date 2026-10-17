@@ -36,3 +36,20 @@ uv run --locked --group dev pytest -q
 The original six backend/scripted ADK checks and literal starter fixture remain explicit human compatibility seams in `store.py`/`agent.py`; their injected `BaseLlm` objects are separate from normal native execution. Tests run the actual normal ADK/Gemini/Google SDKs against owned synthetic HTTP with synthetic keys/counters. No live Gemini quality, actual billing, real calendar/purchasing/physical booking or new Firedrill persisted integration is qualified. SequentialAgent remains supported in pinned ADK2.12.0 with a documented deprecation warning.
 
 Live enabled models/keys/budget, semantic/billing review, real connectors, new Firedrill release qualification, public publication and license remain external gates. The repository remains private without a license pending that decision. See [PLAN.md](PLAN.md) and the [Firedrill example catalog](https://github.com/firedrill-tools/firedrill-example-catalog).
+
+## Installed scenarios and distributions
+
+```sh
+uv run resource-team-state init --db default-resources.db
+uv run resource-team-cases list
+uv run resource-team-cases init --case busy-recovery --root /tmp/resource-busy
+uv run resource-team-cases inspect --root /tmp/resource-busy
+uv run resource-team-cases reset --root /tmp/resource-busy --new-root /tmp/resource-busy-reset
+uv run python scripts/generate_populations.py --check
+uv build
+uv run --group dev python scripts/check_distribution.py
+```
+
+Default initialization uses the exact pinned installed starter. Explicit fixture imports still require original unshared files. Setup/inspection snapshots are private and do not grant runtime capabilities. Three cases each cover starter, busy, ambiguous and boundary conditions; busy populations contain68resources/64requests/96fully replayed human steps with prior confirmed, compensated and partial allocations. Separate reset preserves old source, holds, audit and receipt bytes. See [scenario details](scenarios/README.md) and [qualification boundaries](COMPATIBILITY.md).
+
+Distribution gates create fresh wheel production, sdist production, complete full and complete production environments outside checkout with locked dependency hashes. Production has no pytest. Each runs all12normal actual SDK cases (130owned HTTP requests), private CLI preserving reset, normal installed CLI complete/unfinished final/SIGINT/SIGTERM/SIGHUP after a real pending hold/default init/missing key. Complete source reruns144checks, verifies every source byte/mode/hash and reproduces portable archive bytes. CI uploads its exact source archive for download comparison; immutable revision/evidence goes in the portfolio catalog after success.

@@ -12,7 +12,7 @@ def main(argv=None):
     commands = parser.add_subparsers(dest="command", required=True)
     init = commands.add_parser("init")
     init.add_argument("--db", required=True)
-    init.add_argument("--fixture", required=True)
+    init.add_argument("--fixture")
     inspect = commands.add_parser("inspect")
     inspect.add_argument("--db", required=True)
     intent = commands.add_parser("intent")
@@ -24,11 +24,15 @@ def main(argv=None):
     human.add_argument("--action-json", required=True)
     args = parser.parse_args(argv)
     try:
-        source = (
-            ManagedSource.seed(args.db, args.fixture)
-            if args.command == "init"
-            else ManagedSource(args.db)
-        )
+        if args.command == "init":
+            if args.fixture:
+                source = ManagedSource.seed(args.db, args.fixture)
+            else:
+                from .assets import read_asset
+
+                source = ManagedSource.seed_bytes(args.db, read_asset("starter.json"))
+        else:
+            source = ManagedSource(args.db)
         try:
             if args.command == "intent":
                 result = source.intent(args.request_id, args.task)
