@@ -1,4 +1,4 @@
-"""Owned current SQLite allocation source, caller scopes and atomic outbox decisions."""
+"""Owned current SQLite allocation source, caller scopes and atomic resource decisions."""
 
 from __future__ import annotations
 

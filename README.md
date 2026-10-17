@@ -1,32 +1,38 @@
 # Resource allocation team
 
-A Google ADK workflow coordinates three Gemini specialists over a shared synthetic resource store: availability inspection, reservation, and compensation. SQLite transactions protect room and equipment holds when requests compete. A request is confirmed only after it holds every required resource. A partial allocation or downstream commit failure remains visible until the compensation specialist releases its uncommitted holds.
+Actual Google ADK availability, reservation and compensation specialists coordinate a local synthetic shared-resource workspace. The normal path uses real ADK `SequentialAgent`/`LlmAgent`/async `FunctionTool`/`Runner`, real Gemini and Google SDKs, and owned public HTTPX sync/async clients. Each hold, confirmation, release and final role transition consumes its own current source inspection. Compensation inspects even after a reservation claims success and never releases committed or other requests' allocations.
 
 ## Run locally
 
-Requires Python 3.12+ and [uv](https://docs.astral.sh/uv/).
+Requires Python3.12+ and [uv](https://docs.astral.sh/uv/).
 
 ```sh
-uv sync --group dev
-uv run resource-team --seed
+uv sync --locked --group dev
+uv run resource-team-state init --db resources.db --fixture fixtures/starter.json
 ```
 
-Set `GOOGLE_API_KEY` and an enabled `GEMINI_MODEL`, then inspect without writes:
+Set `GOOGLE_API_KEY` and an explicitly enabled `GEMINI_MODEL`, then run:
 
 ```sh
-uv run resource-team --request-id REQ-101 --task "Inspect the room and projector needed by this request"
+uv run resource-team --db resources.db --request-id REQ-101 \
+  --task 'Allocate these exact original requested resources and inspect final compensation state.' \
+  --allow-writes --output artifacts/resource-allocation
 ```
 
-To allow a synthetic allocation:
+Omit `--allow-writes` to inspect: the actual specialists and private role controls run, while business resources, requests, holds and audit remain byte-for-byte unchanged. Missing keys/models fail before opening source or allocating SDK clients. No provider default model or paid fallback is enabled by these instructions.
+
+REQ-101/REQ-102 compete for the same room/projector. REQ-103 holds a different pair and deliberately fails at commit; actual compensation releases its pending holds. A shared SQLite transaction confirms only with all original required resources. Every role and write needs genuine private current-read authority, an unchanged original selected request plan and independent caller permission. Safe resource/request revisions, current availability, competing holds and complete prior history matter. A changed original plan invalidates that scope. Confirmed allocations survive later technical failure; partial holds remain visible until actual authorized compensation.
+
+## Evidence and lifecycle
+
+Whole original bounded fatal UTF8/JSON, explicit single-candidate `STOP`, exact function name/arguments/types and SDK parsed-content comparison precede tool effects. Missing/null/unfinished/parallel/coerced/malformed/refused or unsupported provider data stops normal execution. Original unknown fields and unknown/zero/invalid usage counters remain distinct from SDK normalization; billing stays unknown. No retry/fallback/redirect, ambient Vertex/account/origin/header/cache/session routing, fake normal model or vendor/global patch is used. Run telemetry explicitly captures no message content; an already configured global tracing provider or ambient exporter/custom-header configuration is unsupported at startup.
+
+Per-run ownership covers both actual supplied HTTPX pools (the Google SDK deliberately leaves custom pools open), SDK facades, actual runner/session, graph task, database/FD, timers/watchers and SIGINT/SIGTERM/SIGHUP. Cancellation revokes scope before draining work. Evidence separately records technical success, known earlier effects, source validity, recording failure and failed cleanup acknowledgments. A model narrative never grants authority or substitutes for compensation's actual final inspection.
 
 ```sh
-uv run resource-team --request-id REQ-101 --task "Reserve both required resources, confirm only if both holds succeed, and compensate any failure" --allow-writes
+uv run --locked --group dev pytest -q
 ```
 
-`--db` changes the local SQLite path, defaulting to `workspace/resources.db`. The ADK `SequentialAgent` runs availability, reservation and compensation specialists in order. Each specialist reads the same committed database. Tool writes require `--allow-writes`; holds use expected resource revisions and `BEGIN IMMEDIATE` transactions. REQ-101 and REQ-102 compete for the same room and projector. REQ-103 deliberately fails at commit after acquiring a different room and projector; compensation releases those holds. The final JSON reports the exact request, resources, holds, audit events and model usage when ADK supplies it.
+The original six backend/scripted ADK checks and literal starter fixture remain explicit human compatibility seams in `store.py`/`agent.py`; their injected `BaseLlm` objects are separate from normal native execution. Tests run the actual normal ADK/Gemini/Google SDKs against owned synthetic HTTP with synthetic keys/counters. No live Gemini quality, actual billing, real calendar/purchasing/physical booking or new Firedrill persisted integration is qualified. SequentialAgent remains supported in pinned ADK2.12.0 with a documented deprecation warning.
 
-The sample has no real room calendar, purchasing or physical reservation system. Reset by creating a new database path; seeding refuses to overwrite an existing file. `uv run --group dev pytest` exercises concurrent contenders, complete and partial holds, downstream failure, compensation, a read-only run, and actual ADK runner execution with scripted specialist models. These are offline workflow and state proofs, not live Gemini decision quality. Live Gemini and new Firedrill integration proofs remain pending.
-
-ADK 2.12.0 still supports `SequentialAgent` but warns that it will be replaced by `Workflow` in a future version. This private repository has no license pending portfolio publication decisions.
-
-Explore related applications in the [Firedrill example catalog](https://github.com/firedrill-tools/firedrill-example-catalog). Product and setup references: [Firedrill](https://firedrill.run/) and the [official developer documentation](https://docs.firedrill.run/). Use documentation matching the qualified release; this repository records its current integration limits above.
+Live enabled models/keys/budget, semantic/billing review, real connectors, new Firedrill release qualification, public publication and license remain external gates. The repository remains private without a license pending that decision. See [PLAN.md](PLAN.md) and the [Firedrill example catalog](https://github.com/firedrill-tools/firedrill-example-catalog).
