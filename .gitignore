@@ -10,3 +10,6 @@ dist/
 artifacts/
 *.db
 *.db-journal
+
+node_modules/
+.runs/
