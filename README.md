@@ -39,7 +39,7 @@ uv run --locked --group dev pytest -q
 
 The original six backend/scripted ADK checks and literal starter fixture remain explicit human compatibility seams in `store.py`/`agent.py`; their injected `BaseLlm` objects are separate from normal native execution. Tests run the actual normal ADK/Gemini/Google SDKs against owned synthetic HTTP with synthetic keys/counters. No live Gemini quality, actual billing, real calendar/purchasing/physical booking or authenticated Firedrill persistence is qualified. SequentialAgent remains supported in pinned ADK2.12.0 with a documented deprecation warning.
 
-Live enabled models/keys/budget, semantic/billing review, real connectors, authenticated Firedrill persistence verification, and license selection remain external gates. The repository is publicly viewable; no project license has been selected. See [PLAN.md](PLAN.md) and the [Firedrill example catalog](https://github.com/firedrill-tools/firedrill-example-catalog).
+Live enabled models/keys/budget, semantic/billing review, real connectors, authenticated Firedrill persistence verification, and license selection remain external gates. The repository is publicly viewable; no project license has been selected. See [PLAN.md](PLAN.md) and the [Firedrill examples](https://docs.firedrill.run/guides/examples).
 
 ## Installed scenarios and distributions
 
