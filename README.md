@@ -4,6 +4,8 @@ Actual Google ADK availability, reservation and compensation specialists coordin
 
 Simulate this Google ADK AI agent with [Firedrill](https://firedrill.run/), a simulation platform for AI agents. Start with the [Firedrill setup and simulation guide](firedrill/README.md); your coding agent can operate it while this application's runner stays in your repository or CI.
 
+This example repository is publicly viewable. A project license has not been selected.
+
 ## Run locally
 
 Requires Python3.12+ and [uv](https://docs.astral.sh/uv/).
@@ -37,7 +39,7 @@ uv run --locked --group dev pytest -q
 
 The original six backend/scripted ADK checks and literal starter fixture remain explicit human compatibility seams in `store.py`/`agent.py`; their injected `BaseLlm` objects are separate from normal native execution. Tests run the actual normal ADK/Gemini/Google SDKs against owned synthetic HTTP with synthetic keys/counters. No live Gemini quality, actual billing, real calendar/purchasing/physical booking or authenticated Firedrill persistence is qualified. SequentialAgent remains supported in pinned ADK2.12.0 with a documented deprecation warning.
 
-Live enabled models/keys/budget, semantic/billing review, real connectors, authenticated Firedrill persistence verification, public publication and license remain external gates. The repository remains private without a license pending that decision. See [PLAN.md](PLAN.md) and the [Firedrill example catalog](https://github.com/firedrill-tools/firedrill-example-catalog).
+Live enabled models/keys/budget, semantic/billing review, real connectors, authenticated Firedrill persistence verification, and license selection remain external gates. The repository is publicly viewable; no project license has been selected. See [PLAN.md](PLAN.md) and the [Firedrill example catalog](https://github.com/firedrill-tools/firedrill-example-catalog).
 
 ## Installed scenarios and distributions
 
